@@ -14,6 +14,6 @@ func main() {
 	for char, fric := range leters {
 		ffric := (float32(fric) / float32(len(input))) * 200
 		leter := string(char)
-		fmt.Printf("%s - %.2f \n", leter, ffric)
+		fmt.Printf("%s -%d %.2f \n", leter, fric, ffric)
 	}
 }
