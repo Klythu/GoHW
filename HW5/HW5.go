@@ -4,17 +4,14 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"io/ioutil"
 	"strconv"
 	"time"
 )
 
 func main() {
-	f, err := os.OpenFile("archive.txt", os.O_CREATE|os.O_RDWR, 0777)
-	if err != nil {
-		panic(err)
-	}
 	count := 1
+	strinf := ""
 	for {
 
 		input := ""
@@ -24,21 +21,14 @@ func main() {
 		}
 		timenow := time.Now().UTC()
 		dataf := timenow.Format("2006-01-02 15:04:05")
-		dataf = strconv.Itoa(count) + " " + dataf + " " + input + "\n"
+		strinf = strinf + strconv.Itoa(count) + " " + dataf + " " + input + "\n"
 		count++
-		f.WriteString(dataf)
+	}
+	ioutil.WriteFile("archive.txt", []byte(strinf), 0644)
 
-	}
-	f.Close()
-	f, err = os.OpenFile("archive.txt", os.O_CREATE|os.O_RDWR, 0777)
+	information, err := ioutil.ReadFile("archive.txt")
 	if err != nil {
 		panic(err)
 	}
-	f.Chmod(0444)
-	content, err := os.ReadFile("archive.txt")
-	if err != nil {
-		fmt.Println("no such file")
-		panic(err)
-	}
-	fmt.Println(string(content))
+	fmt.Printf("%s", information)
 }
