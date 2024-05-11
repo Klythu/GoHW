@@ -21,7 +21,7 @@ type User struct {
 }
 
 func (s *Service) refresh() {
-	data, err := ioutil.ReadFile("./reserve/data.json")
+	data, err := ioutil.ReadFile("./data.json")
 	if err != nil {
 		fmt.Print("Data was stolen")
 	}
@@ -65,7 +65,7 @@ func main() {
 	alogada.HandleFunc("/user", srw.Delete)
 	alogada.HandleFunc("/froends/", srw.Who)
 	alogada.HandleFunc("/", srw.Older)
-	http.ListenAndServe("localhost:8081", alogada)
+	http.ListenAndServe("localhost:8082", alogada)
 }
 
 func (s *Service) Create(w http.ResponseWriter, r *http.Request) {
